@@ -42,6 +42,7 @@ body {
     margin: 30px 0;
 }
 
+
 .top-header h2 {
     font-size: 22px;
     font-weight: 600;
@@ -142,4 +143,10 @@ a:hover {
 .img{
     background-image: url('https://www.wallpapertip.com/wmimgs/66-666819_website-design-background-creative-background-image-for-website.jpg');
     background-size: cover;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
 }
