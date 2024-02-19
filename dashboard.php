@@ -59,8 +59,8 @@ $conn->close();
     <div class="container">
     <div class="box">
               
-        <h1>Welcome, <?php echo $_SESSION['username']; ?>!</h1>
-        <h2>To-Do List:</h2>
+        <h1>Welcome, <?php echo $_SESSION['username']; ?>!</h1><br>
+        <h2>To-Do List:</h2><br>
         <form method="POST">
             <div class="input-group">
                 <div class="input-field">
