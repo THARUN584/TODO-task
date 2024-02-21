@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    if (strlen($username) < 8 || !preg_match("/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,}$/", $username)) {
+    if (strlen($username) < 8 && !preg_match("/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$/", $username)) {
         echo "Username should conatain atleast 8 characters";
         exit;
     }
@@ -18,20 +18,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Check if email already exists
+    if (strlen($username) < 8 || !preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+        echo "special_characters_not_allowed";
+        exit;
+    }
+    
+  
+
     $email_check_sql = "SELECT * FROM users WHERE username='$username' OR email='$email'";
     $email_check_result = $conn->query($email_check_sql);
 
     if ($email_check_result->num_rows > 0) {
-        // Email already in use, show alert
+    
         echo "<script>alert('User already exist Please Login.');window.location='login.html';</script>";
     } else {
-        // Email is unique, proceed with registration
+       
         $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
 
         if ($conn->query($sql) === TRUE) {
-            // Registration successful, set user ID in session
-            $_SESSION['user_id'] = $conn->insert_id; // Get the user ID of the newly registered user
+           
+            $_SESSION['user_id'] = $conn->insert_id; 
             $_SESSION['username'] = $username;
             header("Location: dashboard.php");
             exit();
